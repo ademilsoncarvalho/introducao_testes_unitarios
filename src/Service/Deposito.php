@@ -21,7 +21,7 @@ class Deposito
         $this->carteira = $carteira;
     }
 
-    public function depositoCarteira($valor): Carteira
+    public function depositoCarteira($valor): Transacao
     {
         if ($valor <= 0)
             throw new \InvalidArgumentException("Valor não pode ser inferior a zero");
@@ -30,7 +30,7 @@ class Deposito
         $transacao->setValor($valor);
         $transacao->setTipo(Transacao::ENTRADA);
         $this->carteira->adicionaTransacao($transacao);
-        return $this->carteira;
+        return $transacao;
     }
 
 }

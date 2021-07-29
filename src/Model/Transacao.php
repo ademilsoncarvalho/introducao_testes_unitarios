@@ -12,6 +12,8 @@ class Transacao
     private $valor;
     /** @var String */
     private $tipo;
+    /** @var \ProjetoTeste\Model\Carteira */
+    private $carteira;
 
     /**
      * @return float
@@ -44,5 +46,22 @@ class Transacao
     {
         $this->tipo = $tipo;
     }
+
+    /**
+     * @return \ProjetoTeste\Model\Carteira
+     */
+    public function getCarteira(): Carteira
+    {
+        return $this->carteira;
+    }
+
+    /**
+     * @param \ProjetoTeste\Model\Carteira $carteira
+     */
+    public function setCarteira(Carteira $carteira): void
+    {
+        $this->carteira = $carteira;
+    }
+
 
 }

@@ -21,7 +21,7 @@ class BuscaSaldoTest extends TestCase
 
         $carteira->adicionaTransacao($transacao);
 
-        $saldo = (new BuscaSaldo($carteira))->buscaSaldoCarteira();
+        $saldo = (new BuscaSaldo())->buscaSaldoCarteira($carteira);
 
         self::assertIsFloat($saldo);
         self::assertEquals($saldo, 10);
@@ -43,7 +43,7 @@ class BuscaSaldoTest extends TestCase
         $carteira->adicionaTransacao($transacao);
         $carteira->adicionaTransacao($transacao2);
 
-        $saldo = (new BuscaSaldo($carteira))->buscaSaldoCarteira();
+        $saldo = (new BuscaSaldo())->buscaSaldoCarteira($carteira);
 
         self::assertIsFloat($saldo);
         self::assertEquals($saldo, 20);
@@ -65,7 +65,7 @@ class BuscaSaldoTest extends TestCase
         $carteira->adicionaTransacao($transacao);
         $carteira->adicionaTransacao($transacao2);
 
-        $saldo = (new BuscaSaldo($carteira))->buscaSaldoCarteira();
+        $saldo = (new BuscaSaldo())->buscaSaldoCarteira($carteira);
 
         self::assertIsFloat($saldo);
         self::assertEquals($saldo, 40);

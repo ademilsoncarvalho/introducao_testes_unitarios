@@ -22,16 +22,16 @@ class Saque
         $this->buscaSaldo = $buscaSaldo;
     }
 
-    public function saqueCarteira($valor): Carteira
+    public function saqueCarteira($valor): Transacao
     {
-        if ($this->buscaSaldo->buscaSaldoCarteira() < $valor)
+        if ($this->buscaSaldo->buscaSaldoCarteira($this->carteira) < $valor)
             throw new \InvalidArgumentException("Nao possui saldo");
 
         $transacao = new Transacao();
         $transacao->setValor($valor);
         $transacao->setTipo(Transacao::SAIDA);
         $this->carteira->adicionaTransacao($transacao);
-        return $this->carteira;
+        return $transacao;
     }
 
 

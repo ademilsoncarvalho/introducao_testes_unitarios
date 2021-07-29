@@ -17,8 +17,9 @@ class DepositoTest extends TestCase
         $servicoDeposito = new Deposito($carteira);
         $servicoDeposito->depositoCarteira(10);
         $servicoDeposito->depositoCarteira(50);
-        $carteira = $servicoDeposito->depositoCarteira(70);
+        $transacao = $servicoDeposito->depositoCarteira(70);
 
+        self::assertInstanceOf(Transacao::class, $transacao);
         self::assertIsArray($carteira->getTransacoes());
         self::assertCount(3, $carteira->getTransacoes());
     }
@@ -28,9 +29,9 @@ class DepositoTest extends TestCase
 
         $carteira = new Carteira();
         $servicoDeposito = new Deposito($carteira);
-        $carteira = $servicoDeposito->depositoCarteira(70);
+        $transacao = $servicoDeposito->depositoCarteira(70);
 
-        self::assertIsArray($carteira->getTransacoes());
+        self::assertInstanceOf(Transacao::class, $transacao);
         self::assertCount(1, $carteira->getTransacoes());
     }
 
@@ -40,9 +41,9 @@ class DepositoTest extends TestCase
         $valor = 70;
         $carteira = new Carteira();
         $servicoDeposito = new Deposito($carteira);
-        $carteira = $servicoDeposito->depositoCarteira($valor);
+        $transacao = $servicoDeposito->depositoCarteira($valor);
 
-        self::assertIsArray($carteira->getTransacoes());
+        self::assertInstanceOf(Transacao::class, $transacao);
         self::assertCount(1, $carteira->getTransacoes());
         self::assertEquals($carteira->getTransacoes()[0]->getValor(), $valor);
     }
@@ -53,9 +54,9 @@ class DepositoTest extends TestCase
         $valor = 70;
         $carteira = new Carteira();
         $servicoDeposito = new Deposito($carteira);
-        $carteira = $servicoDeposito->depositoCarteira($valor);
+        $transacao = $servicoDeposito->depositoCarteira($valor);
 
-        self::assertIsArray($carteira->getTransacoes());
+        self::assertInstanceOf(Transacao::class, $transacao);
         self::assertCount(1, $carteira->getTransacoes());
         self::assertEquals(Transacao::ENTRADA, $carteira->getTransacoes()[0]->getTipo());
     }
