@@ -6,26 +6,34 @@ use ProjetoTeste\Model\Carteira;
 
 class Transferencia
 {
-    private Carteira $destino;
+    private BuscaSaldo $buscaSaldo;
 
-    private Carteira $origem;
+    private Saque $saque;
 
-    public function __construct(Carteira $origem, Carteira $destino)
+    private Deposito $deposito;
+
+    /**
+     * Transferencia constructor.
+     *
+     * @param \ProjetoTeste\Service\BuscaSaldo $buscaSaldo
+     * @param \ProjetoTeste\Service\Saque $saque
+     * @param \ProjetoTeste\Service\Deposito $deposito
+     */
+    public function __construct(BuscaSaldo $buscaSaldo, Saque $saque, Deposito $deposito)
     {
-        $this->origem = $origem;
-        $this->destino = $destino;
+        $this->buscaSaldo = $buscaSaldo;
+        $this->saque = $saque;
+        $this->deposito = $deposito;
     }
 
-    public function transferir($valor)
+
+    public function transferir(Carteira $origem, Carteira $destino, $valor)
     {
-        $buscaSaldo = new BuscaSaldo();
-        if ($buscaSaldo->buscaSaldoCarteira($this->origem) < $valor)
+        if ($this->buscaSaldo->buscaSaldoCarteira($origem) < $valor)
             throw new \InvalidArgumentException("Saldo insuficiente");
 
-        $saque = new Saque($this->origem, $buscaSaldo);
-        $transacaOrigem = $saque->saqueCarteira($valor);
-        $deposito = new Deposito($this->destino);
-        $transacaDestino = $deposito->depositoCarteira($valor);
+        $transacaOrigem = $this->saque->saqueCarteira($origem, $valor);
+        $transacaDestino = $this->deposito->depositoCarteira($destino, $valor);
 
         return [
             'origem' => $transacaOrigem,

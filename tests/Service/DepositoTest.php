@@ -14,10 +14,10 @@ class DepositoTest extends TestCase
     {
 
         $carteira = new Carteira();
-        $servicoDeposito = new Deposito($carteira);
-        $servicoDeposito->depositoCarteira(10);
-        $servicoDeposito->depositoCarteira(50);
-        $transacao = $servicoDeposito->depositoCarteira(70);
+        $servicoDeposito = new Deposito();
+        $servicoDeposito->depositoCarteira($carteira,10);
+        $servicoDeposito->depositoCarteira($carteira,50);
+        $transacao = $servicoDeposito->depositoCarteira($carteira, 70);
 
         self::assertInstanceOf(Transacao::class, $transacao);
         self::assertIsArray($carteira->getTransacoes());
@@ -26,10 +26,9 @@ class DepositoTest extends TestCase
 
     public function testUmDepositoCarteira()
     {
-
         $carteira = new Carteira();
-        $servicoDeposito = new Deposito($carteira);
-        $transacao = $servicoDeposito->depositoCarteira(70);
+        $servicoDeposito = new Deposito();
+        $transacao = $servicoDeposito->depositoCarteira($carteira,70);
 
         self::assertInstanceOf(Transacao::class, $transacao);
         self::assertCount(1, $carteira->getTransacoes());
@@ -37,11 +36,10 @@ class DepositoTest extends TestCase
 
     public function testValorTransacaoDeposito()
     {
-
         $valor = 70;
         $carteira = new Carteira();
-        $servicoDeposito = new Deposito($carteira);
-        $transacao = $servicoDeposito->depositoCarteira($valor);
+        $servicoDeposito = new Deposito();
+        $transacao = $servicoDeposito->depositoCarteira($carteira, $valor);
 
         self::assertInstanceOf(Transacao::class, $transacao);
         self::assertCount(1, $carteira->getTransacoes());
@@ -53,8 +51,8 @@ class DepositoTest extends TestCase
 
         $valor = 70;
         $carteira = new Carteira();
-        $servicoDeposito = new Deposito($carteira);
-        $transacao = $servicoDeposito->depositoCarteira($valor);
+        $servicoDeposito = new Deposito();
+        $transacao = $servicoDeposito->depositoCarteira($carteira, $valor);
 
         self::assertInstanceOf(Transacao::class, $transacao);
         self::assertCount(1, $carteira->getTransacoes());
@@ -66,9 +64,9 @@ class DepositoTest extends TestCase
 
         $valor = -1;
         $carteira = new Carteira();
-        $servicoDeposito = new Deposito($carteira);
+        $servicoDeposito = new Deposito();
 
         $this->expectException(\InvalidArgumentException::class);
-        $servicoDeposito->depositoCarteira($valor);
+        $servicoDeposito->depositoCarteira($carteira, $valor);
     }
 }

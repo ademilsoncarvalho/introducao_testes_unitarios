@@ -10,18 +10,7 @@ use ProjetoTeste\Model\Transacao;
 class Deposito
 {
 
-    private Carteira $carteira;
-
-    /**
-     * Saque constructor.
-     * @param Carteira $carteira
-     */
-    public function __construct(Carteira $carteira)
-    {
-        $this->carteira = $carteira;
-    }
-
-    public function depositoCarteira($valor): Transacao
+    public function depositoCarteira(Carteira $carteira, $valor): Transacao
     {
         if ($valor <= 0)
             throw new \InvalidArgumentException("Valor não pode ser inferior a zero");
@@ -29,7 +18,7 @@ class Deposito
         $transacao = new Transacao();
         $transacao->setValor($valor);
         $transacao->setTipo(Transacao::ENTRADA);
-        $this->carteira->adicionaTransacao($transacao);
+        $carteira->adicionaTransacao($transacao);
         return $transacao;
     }
 

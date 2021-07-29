@@ -15,12 +15,12 @@ class SaqueTest extends TestCase
     public function testQuantidadeTransacoesSaque()
     {
         $carteira = new Carteira();
-        $servicoDeposito = new Deposito($carteira);
-        $transacao = $servicoDeposito->depositoCarteira(70);
+        $servicoDeposito = new Deposito();
+        $transacao = $servicoDeposito->depositoCarteira($carteira,70);
 
         $serviceBuscaSaldo = new BuscaSaldo();
-        $servicoSaque = new Saque($carteira, $serviceBuscaSaldo);
-        $transacao = $servicoSaque->saqueCarteira(10);
+        $servicoSaque = new Saque($serviceBuscaSaldo);
+        $transacao = $servicoSaque->saqueCarteira($carteira, 10);
 
         self::assertIsArray($carteira->getTransacoes());
         self::assertCount(2, $carteira->getTransacoes());
@@ -29,12 +29,12 @@ class SaqueTest extends TestCase
     public function testValorTransacaoSaqueComValorNaCarteira()
     {
         $carteira = new Carteira();
-        $servicoDeposito = new Deposito($carteira);
-        $transacao = $servicoDeposito->depositoCarteira(70);
+        $servicoDeposito = new Deposito();
+        $transacao = $servicoDeposito->depositoCarteira($carteira,70);
 
         $serviceBuscaSaldo = new BuscaSaldo();
-        $servicoSaque = new Saque($carteira, $serviceBuscaSaldo);
-        $carteiraPosSaque = $servicoSaque->saqueCarteira(10);
+        $servicoSaque = new Saque($serviceBuscaSaldo);
+        $carteiraPosSaque = $servicoSaque->saqueCarteira($carteira,10);
 
         self::assertIsArray($carteira->getTransacoes());
         self::assertEquals(10, $carteira->getTransacoes()[1]->getValor());
@@ -44,12 +44,12 @@ class SaqueTest extends TestCase
     public function testTipoTransacaoSaqueComValorNaCarteira()
     {
         $carteira = new Carteira();
-        $servicoDeposito = new Deposito($carteira);
-        $transacao = $servicoDeposito->depositoCarteira(70);
+        $servicoDeposito = new Deposito();
+        $transacao = $servicoDeposito->depositoCarteira($carteira,70);
 
         $serviceBuscaSaldo = new BuscaSaldo();
-        $servicoSaque = new Saque($carteira, $serviceBuscaSaldo);
-        $transacao = $servicoSaque->saqueCarteira(10);
+        $servicoSaque = new Saque($serviceBuscaSaldo);
+        $transacao = $servicoSaque->saqueCarteira($carteira, 10);
 
         self::assertIsArray($carteira->getTransacoes());
         self::assertEquals(Transacao::SAIDA, $carteira->getTransacoes()[1]->getTipo());
@@ -59,10 +59,10 @@ class SaqueTest extends TestCase
     {
         $carteira = new Carteira();
         $serviceBuscaSaldo = new BuscaSaldo();
-        $servicoSaque = new Saque($carteira, $serviceBuscaSaldo);
+        $servicoSaque = new Saque($serviceBuscaSaldo);
 
         $this->expectException(\InvalidArgumentException::class);
-        $servicoSaque->saqueCarteira(10);
+        $servicoSaque->saqueCarteira($carteira, 10);
     }
 
 }
