@@ -1,0 +1,14 @@
+{
+    "name": "ademilson/projeto_teste",
+    "description": "Projeto de teste",
+    "autoload": {
+        "psr-4": {
+            "ProjetoTeste\\": "src/",
+            "ProjetoTeste\\Tests\\": "tests/"
+        }
+    },
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    }
+}
