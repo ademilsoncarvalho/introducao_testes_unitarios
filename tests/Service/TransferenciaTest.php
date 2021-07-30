@@ -30,7 +30,7 @@ class TransferenciaTest extends TestCase
 
     }
 
-    public function testValorTransferenciaComSucesso() {
+    public function testValorPositivoTransferenciaComSucesso() {
 
         $origem = new Carteira();
         $deposito = new Deposito();
