@@ -20,3 +20,4 @@ Partindo da explicação acima, em um sistema orientado a objetos geralmente a m
 * Facilitar a refatoração e aumentar a confiança no código entregue
 * Aumento natural na qualidade do código
 * Ajuda a identificar e corrigir defeitos, refatorar o código e servir como documentação para cenários criados
+
