@@ -65,4 +65,38 @@ class SaqueTest extends TestCase
         $servicoSaque->saqueCarteira($carteira, 10);
     }
 
+    public function testTipoTransacaoSaqueComValorNaCarteiraUsandoStub()
+    {
+        $carteira = new Carteira();
+        // Cria um esboço para a classe SomeClass.
+        $buscaSaldoStub = $this->createMock(BuscaSaldo::class);
+        // Configura o esboço.
+        $buscaSaldoStub->method('buscaSaldoCarteira')
+            ->willReturn(40.0);
+
+        $servicoSaque = new Saque($buscaSaldoStub);
+        $transacao = $servicoSaque->saqueCarteira($carteira, 10);
+
+        self::assertIsArray($carteira->getTransacoes());
+        self::assertEquals(Transacao::SAIDA, $transacao->getTipo());
+    }
+
+    public function testTipoTransacaoSaqueComValorNaCarteiraUsandoMock()
+    {
+        $carteira = new Carteira();
+
+        $mock = $this->getMockBuilder(BuscaSaldo::class)->getMock();
+
+        // Configura o esboço.
+        $mock->expects($this->once())->method('buscaSaldoCarteira')
+            ->with($this->equalTo($carteira))
+            ->willReturn(40.0);
+
+        $servicoSaque = new Saque($mock);
+        $transacao = $servicoSaque->saqueCarteira($carteira, 10);
+
+        self::assertIsArray($carteira->getTransacoes());
+        self::assertEquals(Transacao::SAIDA, $transacao->getTipo());
+    }
+
 }
